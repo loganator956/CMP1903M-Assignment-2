@@ -1,4 +1,5 @@
 ﻿using System;
+using Games.Dice;
 
 namespace CMP1903M_Assignment_2
 {
@@ -6,7 +7,7 @@ namespace CMP1903M_Assignment_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine(Die.MultiDieRoll(2, 6).ToString("%t from %rs"));
         }
     }
 }
