@@ -20,7 +20,17 @@ namespace Games.Dice
 
         public int RollOnce()
         {
-            return _random.Next(0, DieSideCount);
+            return _random.Next(1, DieSideCount);
+        }
+
+        public DiceRoll RollMultipleTimes(int count)
+        {
+            List<int> rolls = new List<int>();
+            for (int i = 0; i < count; i++)
+            {
+                rolls.Add(RollOnce());
+            }
+            return new DiceRoll(rolls.ToArray());
         }
 
 
