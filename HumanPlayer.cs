@@ -8,8 +8,19 @@ namespace Games.Dice.ThreeOrMore
         }
         public override DiceRoll TakeTurn(Die dieConfig, int rollsCount)
         {
-            return dieConfig.RollMultipleTimes(rollsCount);
-            // TODO: Add some user input to make seem like you're rolling them
+            DiceRoll roll =  dieConfig.RollMultipleTimes(rollsCount);
+            foreach(int r in roll.Rolls)
+            {
+                Console.WriteLine("Press any key to roll...");
+                Console.ReadKey();
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.Write($"\r{Die.MultiDieRoll(1, 6)}");
+                    Thread.Sleep(75);
+                }
+                Console.Write($"\r{r}\n");
+            }
+            return roll;
         }
     }
 }

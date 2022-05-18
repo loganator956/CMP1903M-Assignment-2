@@ -77,7 +77,7 @@ namespace Games.Dice.ThreeOrMore
                 case 2:
                     if (allowReroll)
                     {
-                        Console.WriteLine($"{currentPlayer.Name} Re-rolling");
+                        Console.WriteLine($"{currentPlayer.Name} Had 2 of a kind! Re-roll the rest!");
                         DiceRoll newRoll = currentPlayer.TakeTurn(DieConfig, RollsPerGo - 2);
                         List<int> newRollList = new List<int>();
                         newRollList.Add(roll.Rolls[0]);
