@@ -5,7 +5,7 @@ namespace Games.Dice
     public class Die
     {
         public int DieSideCount { get; private set; }
-        
+
         private Random _random = new Random();
 
         public Die()
@@ -15,6 +15,7 @@ namespace Games.Dice
 
         public Die(int sideCount)
         {
+            if (sideCount <= 0) { throw new DiceSetupParameterException($"{sideCount} is out of rollable range"); };
             DieSideCount = sideCount;
         }
 
