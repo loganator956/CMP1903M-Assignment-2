@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 namespace Games.Dice
 {
+    /// <summary>
+    /// Resulting data from a roll of dice
+    /// </summary>
     public struct DiceRoll
     {
+        /// <summary>
+        /// The values that were rolled
+        /// </summary>
         public int[] Rolls { get; private set; }
         public int Total { get; private set; }
 

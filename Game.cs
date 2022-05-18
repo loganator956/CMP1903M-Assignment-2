@@ -2,11 +2,26 @@ using System;
 
 namespace Games.Dice.ThreeOrMore
 {
+    /// <summary>
+    /// Implementation of the Three or More game
+    /// </summary>
     public class Game
     {
+        /// <summary>
+        /// Number of times to roll the dice per turn.
+        /// </summary>
         public const int RollsPerGo = 5;
+        /// <summary>
+        /// Number of rounds to be completed.
+        /// </summary>
         public int MaxRounds { get; private set; }
+        /// <summary>
+        /// Array of all players
+        /// </summary>
         public Player[] Players { get; private set; }
+        /// <summary>
+        /// The die that all players roll. (To ensure that they are random as multiple instances created at the same time will have the same seed)
+        /// </summary>
         public Die DieConfig { get; private set; }
         public Game(int maxRounds, Player[] players, int diceSidesCount)
         {
@@ -15,6 +30,9 @@ namespace Games.Dice.ThreeOrMore
             DieConfig = new Die(diceSidesCount);
         }
 
+        /// <summary>
+        /// Main entrypoint into the game
+        /// </summary>
         public void StartGame()
         {
             Console.WriteLine($"Info: Starting game with {Players.Length} players for {MaxRounds} rounds");
@@ -32,7 +50,7 @@ namespace Games.Dice.ThreeOrMore
             }
         }
 
-        void GameLoop()
+        private void GameLoop()
         {
             // Go through each Player object, ask for their dice rolls
             foreach (Player player in Players)
