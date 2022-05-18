@@ -2,9 +2,14 @@ namespace Games.Dice.ThreeOrMore
 {
     public class AIPlayer : Player
     {
-        public override DiceRoll TakeTurn()
+        public AIPlayer(string name)
         {
-            throw new NotImplementedException();
+            Name = name;
+        }
+        
+        public override DiceRoll TakeTurn(Die dieConfig, int rollsCount)
+        {
+            return dieConfig.RollMultipleTimes(rollsCount);
         }
     }
 }
