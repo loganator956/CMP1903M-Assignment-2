@@ -38,50 +38,65 @@ namespace Games.Dice.ThreeOrMore
             foreach (Player player in Players)
             {
                 DiceRoll roll = player.TakeTurn(DieConfig, RollsPerGo);
-                int[] valCount = new int[DieConfig.DieSideCount];
-                foreach (int i in roll.Rolls)
-                {
-                    valCount[i - 1]++; // add 1 to counter for that number
-                }
-                int xOfKind = -1;
-                int xOfKindVal = -1;
-                for (int i = 0; i < valCount.Length; i++)
-                {
-                    // iterating through each count to find the highest. (An array where the roll number on the die is i + 1 and the number of times it happened is valCount[i])
-                    if (valCount[i] > xOfKind)
-                    {
-                        // got a new highest x of kind
-                        xOfKind = valCount[i];
-                        xOfKindVal = i + 1;
-                    }
-                }
 
-                switch (xOfKind)
-                {
-                    case 2:
-                        Console.WriteLine($"{player.Name} only got 2 of a kind. You get 3 more re-rolls");
-                        // TODO: Implement the re-rolling
-                        break;
-                    case 3:
-                        Console.WriteLine($"{player.Name} got 3 of a kind! +3 points!");
-                        player.Score += 3;
-                        break;
-                    case 4:
-                        Console.WriteLine($"{player.Name} got 4 of a kind! +6 points!");
-                        player.Score += 6;
-                        break;
-                    case 5:
-                        Console.WriteLine($"{player.Name} got 5 of a kind! +12 points!");
-                        player.Score += 12;
-                        break;
-                    default:
-                        Console.WriteLine($"Unlucky... {player.Name} only got {xOfKind} of a kind! :(");
-                        break;
-                }
-
+                int newPoints = CalculatePointsForRolls(roll, player);
+                Console.WriteLine($"{player.Name} +{newPoints} points!");
+                player.Score += newPoints;
             }
             // if player has 3 of a kind or more, award the corresponding scores
             // else if the player has 2 of a kind, allow them to re-roll 3 more times (keeping the original 2 of a kind)
+        }
+
+        int CalculatePointsForRolls(DiceRoll roll, Player currentPlayer)
+        {
+            return CalculatePointsForRolls(roll, currentPlayer, true);
+        }
+
+        int CalculatePointsForRolls(DiceRoll roll, Player currentPlayer, bool allowReroll)
+        {
+            int[] valCount = new int[DieConfig.DieSideCount];
+            foreach (int i in roll.Rolls)
+            {
+                valCount[i - 1]++; // add 1 to counter for that number
+            }
+            int xOfKind = -1;
+            int xOfKindVal = -1;
+            for (int i = 0; i < valCount.Length; i++)
+            {
+                // iterating through each count to find the highest. (An array where the roll number on the die is i + 1 and the number of times it happened is valCount[i])
+                if (valCount[i] > xOfKind)
+                {
+                    // got a new highest x of kind
+                    xOfKind = valCount[i];
+                    xOfKindVal = i + 1;
+                }
+            }
+
+            switch (xOfKind)
+            {
+                case 2:
+                    if (allowReroll)
+                    {
+                        Console.WriteLine($"{currentPlayer.Name} Re-rolling");
+                        DiceRoll newRoll = currentPlayer.TakeTurn(DieConfig, RollsPerGo - 2);
+                        List<int> newRollList = new List<int>();
+                        newRollList.Add(roll.Rolls[0]);
+                        newRollList.Add(roll.Rolls[1]);
+                        newRollList.Add(newRoll.Rolls[0]);
+                        newRollList.Add(newRoll.Rolls[1]);
+                        newRollList.Add(newRoll.Rolls[2]);
+                        return CalculatePointsForRolls(new DiceRoll(newRollList.ToArray()), currentPlayer, false);
+                    }
+                    else return 0;
+                case 3:
+                    return 3;
+                case 4:
+                    return 6;
+                case 5:
+                    return 12;
+                default:
+                    return 0;
+            }
         }
     }
 }
