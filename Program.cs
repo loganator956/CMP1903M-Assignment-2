@@ -15,7 +15,7 @@ namespace CMP1903M_Assignment_2
             Game game = new Game(5, players, 6);
             game.StartGame();
             Console.WriteLine("Game has finished. Would you like to go again? [y/N]");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine() ?? "n";
             if (input[0] == 'y' || input[0] == 'Y')
             {
                 Console.WriteLine("Starting again...");
