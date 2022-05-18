@@ -14,6 +14,17 @@ namespace CMP1903M_Assignment_2
             players[1] = new AIPlayer("AI");
             Game game = new Game(5, players, 6);
             game.StartGame();
+            Console.WriteLine("Game has finished. Would you like to go again? [y/N]");
+            string input = Console.ReadLine();
+            if (input[0] == 'y' || input[0] == 'Y')
+            {
+                Console.WriteLine("Starting again...");
+                Main(args);
+            }
+            else
+            {
+                Console.WriteLine("Exiting :)");
+            }
         }
     }
 }
