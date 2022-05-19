@@ -38,7 +38,7 @@ namespace Games.Dice
         /// <returns>The integer value of the roll</returns>
         public int RollOnce()
         {
-            return _random.Next(1, DieSideCount);
+            return _random.Next(1, DieSideCount + 1);
         }
 
         /// <summary>

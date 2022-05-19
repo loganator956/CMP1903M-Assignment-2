@@ -9,6 +9,7 @@ namespace CMP1903M_Assignment_2
         static void Main(string[] args)
         {
             // gather players
+            Test.TestDiceRoll();
             Player[] players = new Player[2];
             players[0] = new HumanPlayer("Human");
             players[1] = new AIPlayer("AI");
